@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class MainProgram extends Application {
 	@Override
@@ -14,7 +15,7 @@ public class MainProgram extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/application/view/NewView.fxml"));
             Scene scene = new Scene(root);
 
-            //primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
+            primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
 
             scene.setOnMousePressed(pressEvent -> {
             	scene.setOnMouseDragged(dragEvent -> {

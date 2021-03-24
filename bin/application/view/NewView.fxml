@@ -1,19 +1,79 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="370.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainPanel">
+<AnchorPane fx:id="newAnchorPane" prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #666666;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainPanel">
    <children>
-      <Pane layoutX="53.0" layoutY="255.0" prefHeight="87.0" prefWidth="507.0">
+      <Pane layoutX="24.0" layoutY="271.0" prefHeight="85.0" prefWidth="552.0">
          <children>
-            <Button fx:id="buttonSend" layoutX="419.0" layoutY="28.0" mnemonicParsing="false" onAction="#buttonSendOnAction" text="Button" />
-            <Label fx:id="labelText" layoutX="41.0" layoutY="33.0" text="Label" />
-            <TextField fx:id="textFieldMessage" layoutX="109.0" layoutY="28.0" prefHeight="31.0" prefWidth="276.0" />
+            <Button fx:id="buttonSend" layoutX="471.0" layoutY="28.0" mnemonicParsing="false" onAction="#buttonSendOnAction" text="Send" />
+            <Label fx:id="labelText" layoutX="21.0" layoutY="33.0" text="Text:" textFill="WHITE" />
+            <TextField fx:id="textFieldMessage" layoutX="70.0" layoutY="28.0" prefHeight="31.0" prefWidth="384.0" promptText="Click &quot;T&quot; to Text, &quot;Enter&quot; to send, and &quot;Esc&quot; to cancel." />
          </children>
       </Pane>
-      <Label layoutX="556.0" layoutY="14.0" text="X" />
+      <Label layoutX="560.0" layoutY="14.0" onMouseClicked="#labelCloseClick" text="  X  " textFill="WHITE">
+         <tooltip>
+            <Tooltip text="Close" />
+         </tooltip></Label>
+      <TitledPane animated="false" layoutX="363.0" layoutY="56.0" prefHeight="199.0" prefWidth="187.0" text="Numpad">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="187.0" style="-fx-background-color: #777777;">
+               <children>
+                  <Button fx:id="buttonNum1" disable="true" layoutX="25.0" layoutY="113.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="1">
+                     <tooltip>
+                        <Tooltip text="EPG" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum2" layoutX="73.0" layoutY="113.0" mnemonicParsing="false" onAction="#buttonNum2Click" prefHeight="40.0" prefWidth="40.0" text="2">
+                     <tooltip>
+                        <Tooltip text="Down" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum3" disable="true" layoutX="120.0" layoutY="113.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="3">
+                     <tooltip>
+                        <Tooltip text="Photo" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum4" layoutX="25.0" layoutY="64.0" mnemonicParsing="false" onAction="#buttonNum4Click" prefHeight="40.0" prefWidth="40.0" text="4">
+                     <tooltip>
+                        <Tooltip text="Left" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum5" layoutX="73.0" layoutY="64.0" mnemonicParsing="false" onAction="#buttonNum5Click" prefHeight="40.0" prefWidth="40.0" text="5">
+                     <tooltip>
+                        <Tooltip text="Click" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum6" layoutX="120.0" layoutY="64.0" mnemonicParsing="false" onAction="#buttonNum6Click" prefHeight="40.0" prefWidth="40.0" text="6">
+                     <tooltip>
+                        <Tooltip text="Right" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum7" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonNum7Click" prefHeight="40.0" prefWidth="40.0" text="7">
+                     <tooltip>
+                        <Tooltip text="Home" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum8" layoutX="73.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonNum8Click" prefHeight="40.0" prefWidth="40.0" text="8">
+                     <tooltip>
+                        <Tooltip text="Up" />
+                     </tooltip>
+                  </Button>
+                  <Button fx:id="buttonNum9" layoutX="120.0" layoutY="14.0" mnemonicParsing="false" onAction="#buttonNum9Click" prefHeight="40.0" prefWidth="40.0" text="9">
+                     <tooltip>
+                        <Tooltip text="Exit" />
+                     </tooltip>
+                  </Button>
+               </children>
+            </AnchorPane>
+        </content>
+      </TitledPane>
    </children>
 </AnchorPane>
