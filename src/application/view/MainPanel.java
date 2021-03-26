@@ -94,7 +94,7 @@ public class MainPanel implements Initializable {
 
 		disableMode();
 
-		runScreenshotMonitor();
+		//runScreenshotMonitor();
 	}
 
 	public void runScreenshotMonitor() {
