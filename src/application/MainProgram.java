@@ -1,11 +1,14 @@
 package application;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class MainProgram extends Application {
 	@Override
@@ -23,6 +26,14 @@ public class MainProgram extends Application {
 	 		        primaryStage.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
             	});
      	    });
+
+            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                @Override
+                public void handle(WindowEvent t) {
+                    Platform.exit();
+                    System.exit(0);
+                }
+            });
 
             primaryStage.setTitle("My Application");
             primaryStage.setScene(scene);

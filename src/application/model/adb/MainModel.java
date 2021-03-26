@@ -11,7 +11,7 @@ public class MainModel implements IModel {
     ProcessBuilder pb;
     boolean isRun;
     //private final String adbFile = "C:\\Users\\vend_Leo_Liao001\\AppData\\Local\\Android\\Sdk\\platform-tools\\adb.exe";
-    private final String adbFile = "adb.exe";
+    private final String adbFile = "adb";
     private static ConcurrentLinkedQueue<String> queueStr = new ConcurrentLinkedQueue<String>();
 	Commands commands;
 

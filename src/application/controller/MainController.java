@@ -17,24 +17,20 @@ public class MainController {
 	}
 
 	public void buttonSendOnAction() {
-		System.out.println("MainController buttonSendOnAction");
-		//view.testFeedback();
 
+		System.out.println("MainController buttonSendOnAction");
 		model.sendAdbString(view.getTextBoxMsg());
     	view.disableMode();
+
 	}
 
 	public void sendTextFieldKey(KeyEvent e) {
 
         if(e.getCode() == KeyCode.ESCAPE) {
-
         	view.disableMode();
-
         } else if (e.getCode() == KeyCode.ENTER) {
-
         	model.sendAdbString(view.getTextBoxMsg());
         	view.disableMode();
-
         }
 	}
 
@@ -46,5 +42,6 @@ public class MainController {
     	}else {
     		model.sendKeyEvent(e);
     	}
+
 	}
 }

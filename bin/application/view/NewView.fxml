@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.embed.swing.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.effect.*?>
@@ -9,22 +12,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="newAnchorPane" prefHeight="370.0" prefWidth="600.0" style="-fx-background-color: #666666;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainPanel">
+<AnchorPane fx:id="newAnchorPane" prefHeight="618.0" prefWidth="1082.0" style="-fx-background-color: #666666;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainPanel">
    <children>
-      <Pane layoutX="24.0" layoutY="271.0" prefHeight="85.0" prefWidth="552.0">
+      <Pane layoutX="14.0" layoutY="519.0" prefHeight="85.0" prefWidth="552.0">
          <children>
             <Button fx:id="buttonSend" layoutX="471.0" layoutY="28.0" mnemonicParsing="false" onAction="#buttonSendOnAction" text="Send" />
             <Label fx:id="labelText" layoutX="21.0" layoutY="33.0" text="Text:" textFill="WHITE" />
             <TextField fx:id="textFieldMessage" layoutX="70.0" layoutY="28.0" prefHeight="31.0" prefWidth="384.0" promptText="Click &quot;T&quot; to Text, &quot;Enter&quot; to send, and &quot;Esc&quot; to cancel." />
          </children>
       </Pane>
-      <Label layoutX="560.0" layoutY="14.0" onMouseClicked="#labelCloseClick" text="  X  " textFill="WHITE">
-         <tooltip>
-            <Tooltip text="Close" />
-         </tooltip></Label>
-      <TitledPane animated="false" layoutX="363.0" layoutY="56.0" prefHeight="199.0" prefWidth="187.0" text="Numpad">
+      <TitledPane animated="false" layoutX="866.0" layoutY="75.0" prefHeight="204.0" prefWidth="186.0" text="Numpad">
         <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="167.0" prefWidth="187.0" style="-fx-background-color: #777777;">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="182.0" prefWidth="184.0" style="-fx-background-color: #777777;">
                <children>
                   <Button fx:id="buttonNum1" disable="true" layoutX="25.0" layoutY="113.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" text="1">
                      <tooltip>
@@ -71,9 +70,38 @@
                         <Tooltip text="Exit" />
                      </tooltip>
                   </Button>
+                  <Label layoutX="164.0" layoutY="74.0" text="▶" />
+                  <Label layoutX="90.0" layoutY="-3.0" rotate="-90.0" text="▶" />
+                  <Label layoutX="90.0" layoutY="152.0" rotate="90.0" text="▶" />
+                  <Label layoutX="12.0" layoutY="74.0" rotate="-180.0" text="▶" />
                </children>
             </AnchorPane>
         </content>
       </TitledPane>
+      <Pane layoutX="37.0" layoutY="54.0" prefHeight="450.0" prefWidth="800.0" style="-fx-background-color: #999999;">
+         <children>
+            <SwingNode fx:id="swingNodeTest" />
+         </children>
+      </Pane>
+      <Pane layoutX="990.0" layoutY="6.0" prefHeight="41.0" prefWidth="78.0">
+         <children>
+            <Label fx:id="labelClose" layoutX="39.0" layoutY="11.0" onMouseClicked="#labelCloseClick" text="  X  " textFill="WHITE">
+               <tooltip>
+                  <Tooltip text="Close" />
+               </tooltip>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="labelIconified" layoutX="12.0" layoutY="-5.0" onMouseClicked="#labelIconifiedClick" prefHeight="21.0" prefWidth="26.0" text=" _ " textFill="WHITE">
+               <tooltip>
+                  <Tooltip text="Close" />
+               </tooltip>
+               <font>
+                  <Font size="26.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

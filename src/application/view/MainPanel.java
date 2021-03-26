@@ -1,10 +1,15 @@
 package application.view;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import application.controller.MainController;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,6 +19,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import name.schedenig.adbcontrol.AdbControlPanel;
+import name.schedenig.adbcontrol.AdbHelper;
+import name.schedenig.adbcontrol.Config;
 
 public class MainPanel implements Initializable {
 
@@ -33,6 +42,9 @@ public class MainPanel implements Initializable {
 
     @FXML
     private Label labelText;
+
+    @FXML
+    private Label labelClose;
 
     @FXML
     private TextField textFieldMessage;
@@ -58,12 +70,16 @@ public class MainPanel implements Initializable {
     @FXML
     private Button buttonNum7;
 
+    @FXML
+    private SwingNode swingNodeTest;
+
 	public MainPanel() {
 		mainController = new MainController(this);
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+
 		System.out.println("initialize");
 
 		textFieldMessage.setOnKeyPressed(e -> {
@@ -77,6 +93,29 @@ public class MainPanel implements Initializable {
 		});
 
 		disableMode();
+
+		runScreenshotMonitor();
+	}
+
+	public void runScreenshotMonitor() {
+		File configFile;
+		configFile = new File("config.properties");
+		Config config = new Config();
+		try(FileInputStream in = new FileInputStream(configFile))
+		{
+			config.load(in);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		AdbControlPanel panel = new AdbControlPanel(config);
+		panel.setAdbHelper(new AdbHelper(config));
+		//getContentPane().add(panel, BorderLayout.CENTER);
+		panel.setSize(800, 450); //1920:1080
+		panel.setLayout(null);
+		swingNodeTest.setContent(panel);
+		swingNodeTest.autosize();
 	}
 
     @FXML
@@ -90,6 +129,12 @@ public class MainPanel implements Initializable {
 	    System.exit(0);
 	}
 
+	@FXML
+	void labelIconifiedClick() {
+	    Stage stage = (Stage) labelClose.getScene().getWindow();
+	    stage.setIconified(true);
+	}
+
     public void testFeedback() {
     	textFieldMessage.setText("ya");
     }
@@ -101,7 +146,6 @@ public class MainPanel implements Initializable {
     public void disableMode() {
     	textFieldMessage.clear();
     	labelText.setDisable(true);
-    	//buttonSend.setDisable(true);
     	textFieldMessage.setDisable(true);
     	labelText.requestFocus();
     }
@@ -110,7 +154,6 @@ public class MainPanel implements Initializable {
 
 		textFieldMessage.clear();
 		labelText.setDisable(false);
-		//buttonSend.setDisable(false);
 		textFieldMessage.setDisable(false);
 		textFieldMessage.requestFocus();
 
@@ -127,7 +170,6 @@ public class MainPanel implements Initializable {
 		}.start();
 
 	}
-
 
     @FXML
     void buttonNum2Click(ActionEvent event) {
