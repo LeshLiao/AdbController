@@ -19,7 +19,7 @@ public class MainProgram extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/application/view/NewView.fxml"));
             Scene scene = new Scene(root);
 
-            //primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
+            primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
             
     		Image icon = new Image("icon/remote-control-1409191-1191921.png");
     		

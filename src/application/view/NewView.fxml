@@ -103,5 +103,10 @@
             </Label>
          </children>
       </Pane>
+      <Button fx:id="buttonPopScreen" layoutX="866.0" layoutY="301.0" mnemonicParsing="false" onAction="#buttonPopScreen" prefHeight="30.0" prefWidth="186.0" text="Pop Screen">
+         <tooltip>
+            <Tooltip text="Home" />
+         </tooltip>
+      </Button>
    </children>
 </AnchorPane>
