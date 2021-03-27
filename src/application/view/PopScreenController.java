@@ -40,6 +40,9 @@ public class PopScreenController implements Initializable {
 
     @FXML
     private Button buttonSet1920x1080;
+    
+    @FXML
+    private Button buttonSet1440x810;
 
     @FXML
     private Button buttonSet500x281;
@@ -69,16 +72,20 @@ public class PopScreenController implements Initializable {
 
 		runScreenshotMonitor();
 	}
-    
+	
     @FXML
     void setFullScreen(ActionEvent event) {
     	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
     	System.out.println("setFullScreen");
-    	
-    	//stage.centerOnScreen();
+
     	paneSub.setLayoutX(stage.getX());
     	paneSub.setLayoutY(stage.getY());
     	stage.setFullScreen(true);
+    }
+    
+    void cancelFullScreen() {
+    	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
+    	stage.setFullScreen(false);
     }
     
 	public void runScreenshotMonitor() {
@@ -96,20 +103,29 @@ public class PopScreenController implements Initializable {
     	System.out.println("setSize1920x1080");
     	ResetScreenSize(1920, 1080);
     }
+    
+    @FXML
+    void setSize1440x810(ActionEvent event) {
+    	System.out.println("setSize1440x810");
+    	ResetScreenSize(1440, 810);
+    }
 
     @FXML
     void setSize1000x562(ActionEvent event) {
-    	System.out.println("setSize1920x1080");
+    	System.out.println("setSize1000x562");
     	ResetScreenSize(1000, 562);
     }
 
     @FXML
     void setSize500x281(ActionEvent event) {
-    	System.out.println("setSize1920x1080");
+    	System.out.println("setSize500x281");
     	ResetScreenSize(500, 281);
     }
     
     public void ResetScreenSize(int Width, int Height) {
+    	cancelFullScreen();
+    	setAnchorPaneMainToZero();
+    	
 		panel = new AdbControlPanel(config);
 		panel.setAdbHelper(new AdbHelper(config));
 		panel.setSize(Width, Height);
@@ -121,38 +137,11 @@ public class PopScreenController implements Initializable {
 		stage.centerOnScreen();
 		
 		if(stage.getY() < 0) {
+			stage.setX(0);
 			stage.setY(0);
 		}
     }
     
-    public void checkStageStatus() {
-    	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
-		if(stage.isFullScreen()) {
-			hideAllButtons();
-		}else {
-			showAllButtons();
-		}
-    }
-    
-    public void hideAllButtons() {
-        buttonFullScreen.setVisible(false);
-        buttonSet1000x562.setVisible(false);
-        buttonSet1920x1080.setVisible(false);
-        buttonSet500x281.setVisible(false);
-    }
-    
-    public void showAllButtons() {
-        buttonFullScreen.setVisible(true);
-        buttonSet1000x562.setVisible(true);
-        buttonSet1920x1080.setVisible(true);
-        buttonSet500x281.setVisible(true);
-    }
-
-    @FXML
-    void anchorPaneMainOnMouseClick() {
-    	showAllButtons();
-    }
-
     @FXML
     void anchorPaneOnKeyPressed(KeyEvent e) {
         if(e.getCode() == KeyCode.ESCAPE) {

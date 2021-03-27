@@ -14,6 +14,7 @@ import application.controller.MainController;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -31,6 +32,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import name.schedenig.adbcontrol.AdbControlPanel;
 import name.schedenig.adbcontrol.AdbHelper;
 import name.schedenig.adbcontrol.Config;
@@ -51,9 +53,6 @@ public class MainPanel implements Initializable {
 
     @FXML
     private Button buttonSend;
-
-    @FXML
-    private Label labelText;
 
     @FXML
     private Label labelClose;
@@ -141,6 +140,15 @@ public class MainPanel implements Initializable {
 			Scene scene = new Scene(root);
 	        dialog.setScene(scene);
 	        dialog.setResizable(false);
+	        
+//	        dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//                @Override
+//                public void handle(WindowEvent t) {
+//                    Platform.exit();
+//                    System.exit(0);
+//                }
+//            });
+            
 	        dialog.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -148,7 +156,7 @@ public class MainPanel implements Initializable {
 	}
 	
 	public void popUpWindow02() {
-		Stage primaryStage = (Stage) labelText.getScene().getWindow();
+		Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
 
         final Stage dialog = new Stage();
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -205,7 +213,7 @@ public class MainPanel implements Initializable {
 	
     void setFullScreen(ActionEvent event) {
     	System.out.print("full screen button");
-    	Stage primaryStage = (Stage) labelText.getScene().getWindow();
+    	Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
     	primaryStage.setFullScreen(true);
     }
     
@@ -236,15 +244,13 @@ public class MainPanel implements Initializable {
 
     public void disableMode() {
     	textFieldMessage.clear();
-    	labelText.setDisable(true);
     	textFieldMessage.setDisable(true);
-    	labelText.requestFocus();
+    	buttonSend.requestFocus();
     }
 
 	public void enableMode() {
 
 		textFieldMessage.clear();
-		labelText.setDisable(false);
 		textFieldMessage.setDisable(false);
 		textFieldMessage.requestFocus();
 

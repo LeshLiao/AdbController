@@ -6,19 +6,20 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPaneMain" onKeyPressed="#anchorPaneOnKeyPressed" onMouseClicked="#anchorPaneMainOnMouseClick" prefHeight="281.0" prefWidth="500.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PopScreenController">
+<AnchorPane fx:id="anchorPaneMain" onKeyPressed="#anchorPaneOnKeyPressed" prefHeight="281.0" prefWidth="500.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PopScreenController">
    <children>
       <Pane fx:id="paneSub" style="-fx-background-color: #000000;">
          <children>
             <SwingNode fx:id="swingNodePopScreen" />
          </children>
       </Pane>
-      <HBox fillHeight="false" onMouseMoved="#showAllButtons" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <HBox fillHeight="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Button fx:id="buttonFullScreen" mnemonicParsing="false" onAction="#setFullScreen" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #333333;" text="Full Screen" textFill="WHITE" />
-            <Button fx:id="buttonSet1920x1080" mnemonicParsing="false" onAction="#setSize1920x1080" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #333333;" text="1920 x 1080" textFill="WHITE" />
-            <Button fx:id="buttonSet1000x562" mnemonicParsing="false" onAction="#setSize1000x562" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #333333;" text="1000 x 562" textFill="WHITE" />
-            <Button fx:id="buttonSet500x281" mnemonicParsing="false" onAction="#setSize500x281" prefHeight="30.0" prefWidth="94.0" style="-fx-background-color: #333333;" text="500 x 281" textFill="WHITE" />
+            <Button fx:id="buttonFullScreen" mnemonicParsing="false" onAction="#setFullScreen" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #333333;" text="Full Screen" textFill="WHITE" />
+            <Button fx:id="buttonSet1920x1080" mnemonicParsing="false" onAction="#setSize1920x1080" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #333333;" text="1920 x 1080" textFill="WHITE" />
+            <Button fx:id="buttonSet1440x810" mnemonicParsing="false" onAction="#setSize1440x810" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #333333;" text="1440 x 810" textFill="WHITE" />
+            <Button fx:id="buttonSet1000x562" mnemonicParsing="false" onAction="#setSize1000x562" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #333333;" text="1000 x 562" textFill="WHITE" />
+            <Button fx:id="buttonSet500x281" mnemonicParsing="false" onAction="#setSize500x281" prefHeight="30.0" prefWidth="100.0" style="-fx-background-color: #333333;" text="500 x 281" textFill="WHITE" />
          </children>
       </HBox>
    </children>
