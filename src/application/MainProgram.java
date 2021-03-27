@@ -6,6 +6,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
@@ -18,8 +19,12 @@ public class MainProgram extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/application/view/NewView.fxml"));
             Scene scene = new Scene(root);
 
-            primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
-
+            //primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
+            
+    		Image icon = new Image("icon/remote-control-1409191-1191921.png");
+    		
+    		primaryStage.getIcons().add(icon);
+            
             scene.setOnMousePressed(pressEvent -> {
             	scene.setOnMouseDragged(dragEvent -> {
 	 		        primaryStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
@@ -45,6 +50,12 @@ public class MainProgram extends Application {
 	}
 
 	public static void main(String[] args) {
+		System.out.println("main");
+		
+		for(String str : args) {
+			System.out.println(str);
+		}
+		
 		launch(args);
 	}
 }
