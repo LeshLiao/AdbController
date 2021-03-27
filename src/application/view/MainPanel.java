@@ -143,7 +143,7 @@ public class MainPanel implements Initializable {
 	        
 	        dialog.setWidth(500+12); // ?
 			dialog.setHeight(281+40);// ?
-            
+
 	        dialog.show();
 		} catch (IOException e) {
 			e.printStackTrace();
