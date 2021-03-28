@@ -40,6 +40,7 @@ import name.schedenig.adbcontrol.Config;
 public class MainPanel implements Initializable {
 
 	private MainController mainController;
+	private Stage dialog;
 	
 
     @FXML
@@ -107,105 +108,38 @@ public class MainPanel implements Initializable {
 		});
 
 		disableMode();
-
-		//runScreenshotMonitor();
 	}
 
-	public void runScreenshotMonitor() {
-		File configFile;
-		configFile = new File("config.properties");
-		Config config = new Config();
-		try(FileInputStream in = new FileInputStream(configFile))
-		{
-			config.load(in);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		AdbControlPanel panel = new AdbControlPanel(config);
-		panel.setAdbHelper(new AdbHelper(config));
-		//getContentPane().add(panel, BorderLayout.CENTER);
-		panel.setSize(800, 450); //1920:1080
-		panel.setLayout(null);
-		swingNodeTest.setContent(panel);
-		swingNodeTest.autosize();
-	}
-	
 	public void popUpWindow01() {
-		Stage dialog = new Stage();
-		
-		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/application/view/popScreen.fxml"));
-			Scene scene = new Scene(root);
-	        dialog.setScene(scene);
-	        dialog.setResizable(false);
-	        
-	        dialog.setWidth(500+12); // ?
-			dialog.setHeight(281+40);// ?
 
-	        dialog.show();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(dialog != null) {
+			if(dialog.isShowing()) return;
+		} else {
+			dialog = new Stage();
+			try {
+				Parent root = FXMLLoader.load(getClass().getResource("/application/view/popScreen.fxml"));
+				Scene scene = new Scene(root);
+		        dialog.setScene(scene);
+		        dialog.setResizable(false);
+		        
+		        dialog.setWidth(500+15); // ?
+				dialog.setHeight(281+40);// ?
+				
+				dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
+	                @Override
+	                public void handle(WindowEvent t) {
+	                    dialog.close();
+	                }
+	            });
+ 
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+
+		dialog.show();
 	}
-	
-	public void popUpWindow02() {
-		Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
 
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.initOwner(primaryStage);
-        VBox dialogVbox = new VBox(0);
-        //dialogVbox.setMaxHeight(800);
-        //Pane popScreenPane = new Pane();
-        
-       //popScreenPane.setMaxHeight(500);
-        //popScreenPane.setMaxWidth(500);
-
-       // Scene dialogScene = new Scene(popScreenPane, 300, 200);
-        
-        dialogVbox.getChildren().add(new Text("This is a Dialog"));
-
-        //Scene dialogScene = new Scene(dialogVbox, 500, 400);
-        Scene dialogScene = new Scene(dialogVbox,500,500);
-        
-        
-//        dialog.setScene(dialogScene);
-//        dialog.show();
-        
-        SwingNode swingNodePopScreen = new SwingNode();
-        
-		File configFile;
-		configFile = new File("config.properties");
-		Config config = new Config();
-		try(FileInputStream in = new FileInputStream(configFile))
-		{
-			config.load(in);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		AdbControlPanel panel = new AdbControlPanel(config);
-		panel.setAdbHelper(new AdbHelper(config));
-		
-		//panel.setSize(1920, 1080);//1920:1080
-		panel.setSize(1500, 800);//1920:1080
-		//panel.setSize((int)dialogScene.getHeight(), (int)dialogScene.getWidth());//1920:1080
-		
-		panel.setLayout(null);
-		//panel.setLayout(new BorderLayout());
-		
-		swingNodePopScreen.setContent(panel);
-		
-		dialogVbox.getChildren().add(swingNodePopScreen);
-		//popScreenPane.getChildren().add(swingNodePopScreen);
-		
-	      dialog.setScene(dialogScene);
-	      dialog.show();
-	}
-	
     void setFullScreen(ActionEvent event) {
     	System.out.print("full screen button");
     	Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
@@ -302,5 +236,4 @@ public class MainPanel implements Initializable {
     void buttonPopScreen(ActionEvent event) {
     	popUpWindow01();
     }
-
 }

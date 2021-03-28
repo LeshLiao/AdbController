@@ -36,7 +36,6 @@ public class MainProgram extends Application {
                 @Override
                 public void handle(WindowEvent t) {
                     Platform.exit();
-                    System.exit(0);
                 }
             });
 
@@ -50,12 +49,8 @@ public class MainProgram extends Application {
 	}
 
 	public static void main(String[] args) {
-		System.out.println("main");
-		
-		for(String str : args) {
-			System.out.println(str);
-		}
-		
+		System.out.println("MainProgram main()");
 		launch(args);
 	}
+	
 }
