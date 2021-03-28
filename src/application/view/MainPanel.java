@@ -1,15 +1,8 @@
 package application.view;
 
-import java.awt.BorderLayout;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.sun.prism.paint.Color;
-
 import application.controller.MainController;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
@@ -23,19 +16,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import name.schedenig.adbcontrol.AdbControlPanel;
-import name.schedenig.adbcontrol.AdbHelper;
-import name.schedenig.adbcontrol.Config;
 
 public class MainPanel implements Initializable {
 
