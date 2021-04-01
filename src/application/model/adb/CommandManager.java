@@ -18,8 +18,6 @@ public class CommandManager implements IModel {
     private static ConcurrentLinkedQueue<String> queueStr = new ConcurrentLinkedQueue<String>();
 	MappingTableCmd mappingTable;
 
-	private static final Logger log = Logger.getLogger(CommandManager.class);
-
     public CommandManager() {
     	mappingTable = new MappingTableCmd();
         threadStart();

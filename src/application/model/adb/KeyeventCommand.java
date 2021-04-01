@@ -2,6 +2,7 @@ package application.model.adb;
 
 import java.io.IOException;
 
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 public class KeyeventCommand implements Command {
@@ -11,6 +12,10 @@ public class KeyeventCommand implements Command {
 
 	private static final Logger log = Logger.getLogger(KeyeventCommand.class);
 
+	public KeyeventCommand() {
+		log.setLevel(Level.ERROR);
+	}
+	
 	@Override
 	public boolean execute(String str) {
 

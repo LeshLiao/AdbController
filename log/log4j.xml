@@ -18,14 +18,25 @@
         </filter>
     </appender>
 
- 
+	<!-- Log file -->
     <appender name="myFile" class="org.apache.log4j.RollingFileAppender">
         <param name="File" value="log/output.log" /><!-- 設定日誌輸出檔名 -->
         <!-- 設定是否在重新啟動服務時，在原有日誌的基礎新增新日誌 -->
         <param name="Append" value="true" />
         <param name="MaxBackupIndex" value="10" />
         <layout class="org.apache.log4j.PatternLayout">
-            <param name="ConversionPattern" value="%p (%c:%L)- %m%n %M" />
+            <param name="ConversionPattern" value="%p (%c:%L) %M - %m%n " />
+        </layout>
+    </appender>
+ 
+
+    <!-- web page report -->
+    <appender name="web_report_test" class="org.apache.log4j.FileAppender">
+        <param name="File" value="log/htmlLayout_report.html" />
+        <param name="Append" value="true" />
+        <layout class="org.apache.log4j.HTMLLayout">
+            <param name="Title" value="Hello" />
+            <param name="LocationInfo" value="true" />
         </layout>
     </appender>
 
@@ -37,6 +48,8 @@
          <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
         </layout>
     </appender>
+    
+    
 
  
     <!-- 指定logger的設定，additivity指示是否遵循預設的繼承機制-->
@@ -50,6 +63,7 @@
         <priority value ="trace"/>			<!-- set log level -->
         <appender-ref ref="myConsole"/>
         <appender-ref ref="myFile"/>
+        <appender-ref ref="web_report_test"/>
     </root>
 
 </log4j:configuration>
