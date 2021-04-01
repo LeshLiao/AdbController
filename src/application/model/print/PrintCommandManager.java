@@ -1,14 +1,14 @@
 package application.model.print;
 
-import application.model.Commands;
+import application.model.MappingTableCmd;
 import application.model.IModel;
 import javafx.scene.input.KeyEvent;
 
-public class PrintModel implements IModel{
-	private Commands commands;
+public class PrintCommandManager implements IModel{
+	private MappingTableCmd commands;
 
-	public PrintModel() {
-		commands = new Commands();
+	public PrintCommandManager() {
+		commands = new MappingTableCmd();
 	}
 
 	@Override

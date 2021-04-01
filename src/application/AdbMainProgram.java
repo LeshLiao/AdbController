@@ -1,5 +1,7 @@
 package application;
 
+import org.apache.log4j.xml.DOMConfigurator;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
-public class MainProgram extends Application {
+public class AdbMainProgram extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 
@@ -19,12 +21,15 @@ public class MainProgram extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/application/view/NewView.fxml"));
             Scene scene = new Scene(root);
 
+            String css = this.getClass().getResource("application.css").toExternalForm();
+            scene.getStylesheets().add(css);
+
             primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
-            
+
     		Image icon = new Image("icon/remote-control-1409191-1191921.png");
-    		
+
     		primaryStage.getIcons().add(icon);
-            
+
             scene.setOnMousePressed(pressEvent -> {
             	scene.setOnMouseDragged(dragEvent -> {
 	 		        primaryStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
@@ -43,6 +48,11 @@ public class MainProgram extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
+            //Logger log = Logger.getRootLogger();
+            //log.setLevel(Level.INFO);
+            //log.info("set log level:" + "Level.INFO");
+            DOMConfigurator.configure("log/log4j.xml" );
+
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -52,5 +62,5 @@ public class MainProgram extends Application {
 		System.out.println("MainProgram main()");
 		launch(args);
 	}
-	
+
 }

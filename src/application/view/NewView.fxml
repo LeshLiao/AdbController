@@ -215,7 +215,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="283.0">
                <children>
-                  <Button fx:id="buttonSend" mnemonicParsing="false" onAction="#buttonSendOnAction" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #1e1e1e;" text="Send" textFill="#cdd3d7">
+                  <Button fx:id="buttonSend" onAction="#buttonSendOnAction" prefHeight="30.0" prefWidth="143.0" text="Send">
                      <tooltip>
                         <Tooltip text="Click &quot;T&quot; to Text, &quot;Enter&quot; to send, and &quot;Esc&quot; to cancel." />
                      </tooltip></Button>
@@ -223,5 +223,6 @@
             </HBox>
          </children>
       </VBox>
+      <Button layoutX="32.0" layoutY="561.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>

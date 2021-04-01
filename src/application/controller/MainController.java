@@ -1,7 +1,7 @@
 package application.controller;
 
 import application.model.IModel;
-import application.model.adb.MainModel;
+import application.model.adb.CommandManager;
 import application.view.MainPanel;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,7 +13,7 @@ public class MainController {
 
 	public MainController(MainPanel _view) {
 		view = _view;
-		model = new MainModel();
+		model = new CommandManager();
 	}
 
 	public void buttonSendOnAction() {
@@ -32,6 +32,7 @@ public class MainController {
         	model.sendAdbString(view.getTextBoxMsg());
         	view.disableMode();
         }
+
 	}
 
 	public void sendPaneKey(KeyEvent e) {
@@ -42,6 +43,10 @@ public class MainController {
     	}else {
     		model.sendKeyEvent(e);
     	}
-
 	}
+
+	public void printTest(String str) {
+		System.out.println("MainController printTest()" + str);
+	}
+
 }

@@ -1,7 +1,6 @@
-package application.view;
+package application.controller;
 
 
-import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -26,13 +25,13 @@ import name.schedenig.adbcontrol.AdbHelper;
 import name.schedenig.adbcontrol.Config;
 
 public class PopScreenController implements Initializable {
-	
+
     @FXML
     private AnchorPane anchorPaneMain;
-    
+
     @FXML
     private Pane paneSub;
-    
+
     @FXML
     private Button buttonFullScreen;
 
@@ -41,7 +40,7 @@ public class PopScreenController implements Initializable {
 
     @FXML
     private Button buttonSet1920x1080;
-    
+
     @FXML
     private Button buttonSet1440x810;
 
@@ -72,15 +71,15 @@ public class PopScreenController implements Initializable {
 		}
 
 		runScreenshotMonitor();
-		
-		
-		
+
+
+
 		new Thread() {
 			  @Override
 			  public void run() {
 				try {
-					sleep(5);
-					
+					sleep(100);
+
 					Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
 					stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
 			            @Override
@@ -94,10 +93,14 @@ public class PopScreenController implements Initializable {
 				}
 			  }
 		}.start();
-			
-
 	}
-	
+
+	public void initData(MainController mainController) {
+		System.out.println("PopScreenController initData()");
+
+		mainController.printTest("hihihi im from PopScreenController");
+    }
+
     @FXML
     void setFullScreen(ActionEvent event) {
     	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
@@ -107,31 +110,29 @@ public class PopScreenController implements Initializable {
     	paneSub.setLayoutY(stage.getY());
     	stage.setFullScreen(true);
     }
-    
+
     void cancelFullScreen() {
     	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
     	stage.setFullScreen(false);
     }
-    
+
 	public void runScreenshotMonitor() {
 		System.out.println("runScreenshotMonitor");
 
 		panel = new AdbControlPanel(config);
-		
+
 		panel.setAdbHelper(new AdbHelper(config));
 		panel.setSize(500, 281);//1920:1080
 		panel.setLayout(null);
 		swingNodePopScreen.setContent(panel);
-		
-
 	}
-	
+
     @FXML
     void setSize1920x1080(ActionEvent event) {
     	System.out.println("setSize1920x1080");
     	ResetScreenSize(1920, 1080);
     }
-    
+
     @FXML
     void setSize1440x810(ActionEvent event) {
     	System.out.println("setSize1440x810");
@@ -149,13 +150,13 @@ public class PopScreenController implements Initializable {
     	System.out.println("setSize500x281");
     	ResetScreenSize(500, 281);
     }
-    
+
     public void ResetScreenSize(int Width, int Height) {
     	cancelFullScreen();
     	setAnchorPaneMainToZero();
-    	
+
     	panel.stopUpdateThread();
-    	
+
 		panel = new AdbControlPanel(config);
 		panel.setAdbHelper(new AdbHelper(config));
 		panel.setSize(Width, Height);
@@ -165,13 +166,13 @@ public class PopScreenController implements Initializable {
 		stage.setWidth(Width+15);
 		stage.setHeight(Height+40);
 		stage.centerOnScreen();
-		
+
 		if(stage.getY() < 0) {
 			stage.setX(0);
 			stage.setY(0);
 		}
     }
-    
+
     @FXML
     void anchorPaneOnKeyPressed(KeyEvent e) {
         if(e.getCode() == KeyCode.ESCAPE) {
@@ -183,6 +184,6 @@ public class PopScreenController implements Initializable {
     	paneSub.setLayoutX(0);
     	paneSub.setLayoutY(0);
     }
-    
+
 
 }

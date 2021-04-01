@@ -3,7 +3,9 @@ package application.view;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import application.controller.MainController;
+import application.controller.PopScreenController;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
@@ -11,7 +13,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,7 +27,6 @@ public class MainPanel implements Initializable {
 
 	private MainController mainController;
 	private Stage dialog;
-	
 
     @FXML
     private Button buttonNum1;
@@ -69,7 +69,7 @@ public class MainPanel implements Initializable {
 
     @FXML
     private SwingNode swingNodeTest;
-    
+
     @FXML
     private Button buttonPopScreen;
 
@@ -102,21 +102,30 @@ public class MainPanel implements Initializable {
 		} else {
 			dialog = new Stage();
 			try {
-				Parent root = FXMLLoader.load(getClass().getResource("/application/view/popScreen.fxml"));
-				Scene scene = new Scene(root);
+				//Parent root = FXMLLoader.load(getClass().getResource("/application/view/popScreen.fxml"));
+				FXMLLoader loader = new FXMLLoader(
+					    getClass().getResource(
+					    		"/application/view/popScreen.fxml"
+					    )
+					  );
+
+				Scene scene = new Scene(loader.load());
 		        dialog.setScene(scene);
 		        dialog.setResizable(false);
-		        
-		        dialog.setWidth(500+15); // ?
-				dialog.setHeight(281+40);// ?
-				
+
+		        dialog.setWidth(500+15);
+				dialog.setHeight(281+40);
+
+				PopScreenController controller = loader.getController();
+				controller.initData(mainController);
+
 				dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
 	                @Override
 	                public void handle(WindowEvent t) {
 	                    dialog.close();
 	                }
 	            });
- 
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -130,7 +139,7 @@ public class MainPanel implements Initializable {
     	Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
     	primaryStage.setFullScreen(true);
     }
-    
+
     @FXML
     void buttonSendOnAction(ActionEvent event) {
     	mainController.buttonSendOnAction();
@@ -179,7 +188,6 @@ public class MainPanel implements Initializable {
 			}
 		  }
 		}.start();
-
 	}
 
     @FXML
@@ -216,7 +224,7 @@ public class MainPanel implements Initializable {
     void buttonNum9Click(ActionEvent event) {
     	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD9, false, false, false, false));
     }
-    
+
     @FXML
     void buttonPopScreen(ActionEvent event) {
     	popUpWindow01();

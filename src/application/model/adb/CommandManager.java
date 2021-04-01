@@ -1,59 +1,50 @@
 package application.model.adb;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import application.model.Commands;
-import application.model.IModel;
-import javafx.scene.input.KeyEvent;
-//
-public class MainModel implements IModel {
-    ProcessBuilder pb;
-    boolean isRun;
-    private final String adbFile = "adb";
-    private static ConcurrentLinkedQueue<String> queueStr = new ConcurrentLinkedQueue<String>();
-	Commands commands;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
-    public MainModel() {
-        pb = new ProcessBuilder();
-        commands = new Commands();
+import application.model.IModel;
+import application.model.MappingTableCmd;
+import javafx.scene.input.KeyEvent;
+
+
+public class CommandManager implements IModel {
+    boolean isRun;
+    private List<Command> commandList = new ArrayList<>();
+    private static ConcurrentLinkedQueue<String> queueStr = new ConcurrentLinkedQueue<String>();
+	MappingTableCmd mappingTable;
+
+	private static final Logger log = Logger.getLogger(CommandManager.class);
+
+    public CommandManager() {
+    	mappingTable = new MappingTableCmd();
         threadStart();
+
+        BasicConfigurator.configure();
     }
 
     public void runByStr(String str) {
-        pb.command(adbFile,"shell","input","keyevent",str);
-
-        try {
-        	pb.start();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
+    	Command cmd = new KeyeventCommand();
+    	cmd.execute(str);
+    	commandList.add(cmd);
     }
 
     @Override
 	public void sendAdbString(String str) {
-
-        System.out.println("sendAdbString, str="+ str);
-
-        String content = "\'" + str +  "\'";
-
-        System.out.println("sendAdbString, content="+ content);
-
-        pb.command(adbFile,"shell","input","text ",content);
-
-        try {
-            pb.start();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-
+    	Command cmd = new TextCommand();
+    	cmd.execute(str);
+    	commandList.add(cmd);
     }
 
     @Override
 	public void sendKeyEvent(KeyEvent e) {
     	System.out.println("sendKeyEvent");
     	if( queueStr.size()  <= 3) {
-    		String str = commands.map.get(e.getCode());
+    		String str = mappingTable.map.get(e.getCode());
     		if(str != null) {
     			queueStr.offer(str);
     		}

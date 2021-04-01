@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="anchorPaneMain" onKeyPressed="#anchorPaneOnKeyPressed" prefHeight="281.0" prefWidth="500.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.PopScreenController">
+<AnchorPane fx:id="anchorPaneMain" onKeyPressed="#anchorPaneOnKeyPressed" prefHeight="281.0" prefWidth="500.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controller.PopScreenController">
    <children>
       <Pane fx:id="paneSub" style="-fx-background-color: #000000;">
          <children>

@@ -5,11 +5,11 @@ import java.util.Map;
 
 import javafx.scene.input.KeyCode;
 
-public class Commands {
+public class MappingTableCmd {
 
 	public Map<KeyCode, String> map = new HashMap<KeyCode, String>();
 
-	public Commands() {
+	public MappingTableCmd() {
 
 		map.put(KeyCode.NUMPAD6, "KEYCODE_DPAD_RIGHT");
 		map.put(KeyCode.NUMPAD4, "KEYCODE_DPAD_LEFT");
