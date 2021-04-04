@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
+
 import application.controller.MainController;
 import application.controller.PopScreenController;
 import javafx.application.Platform;
@@ -25,8 +27,9 @@ import javafx.stage.WindowEvent;
 
 public class MainPanel implements Initializable {
 
-	private MainController mainController;
-	private Stage dialog;
+    private static final Logger log = Logger.getLogger(MainPanel.class);
+    private MainController mainController;
+    private Stage dialog;
 
     @FXML
     private Button buttonNum1;
@@ -73,160 +76,166 @@ public class MainPanel implements Initializable {
     @FXML
     private Button buttonPopScreen;
 
-	public MainPanel() {
-		mainController = new MainController(this);
-	}
+    public MainPanel() {
+        log.debug("");
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
+        mainController = new MainController(this);
+    }
 
-		System.out.println("initialize");
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        log.info("initialize()");
 
-		textFieldMessage.setOnKeyPressed(e -> {
-			System.out.println("myTextField key pressed");
-			mainController.sendTextFieldKey(e);
-		});
+        textFieldMessage.setOnKeyPressed(e -> {
+            log.debug("myTextField key pressed" + e.getText());
+            mainController.sendTextFieldKey(e);
+        });
 
-		newAnchorPane.setOnKeyPressed(e -> {
-			System.out.println("mainPane key pressed:" + e.getText());
-			mainController.sendPaneKey(e);
-		});
+        newAnchorPane.setOnKeyPressed(e -> {
+            log.debug("mainPane key pressed:" + e.getText());
+            mainController.sendPaneKey(e);
+        });
 
-		disableMode();
-	}
+        disableMode();
+    }
 
-	public void popUpWindow01() {
+    public void popUpWindow01() {
+        log.info("");
 
-		if(dialog != null) {
-			if(dialog.isShowing()) return;
-		} else {
-			dialog = new Stage();
-			try {
-				//Parent root = FXMLLoader.load(getClass().getResource("/application/view/popScreen.fxml"));
-				FXMLLoader loader = new FXMLLoader(
-					    getClass().getResource(
-					    		"/application/view/popScreen.fxml"
-					    )
-					  );
+        if (dialog != null) {
+            if (dialog.isShowing())
+                return;
+        } else {
+            dialog = new Stage();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/application/view/popScreen.fxml"));
 
-				Scene scene = new Scene(loader.load());
-		        dialog.setScene(scene);
-		        dialog.setResizable(false);
+                Scene scene = new Scene(loader.load());
+                dialog.setScene(scene);
+                dialog.setResizable(false);
+                dialog.setWidth(500 + 15);
+                dialog.setHeight(281 + 40);
 
-		        dialog.setWidth(500+15);
-				dialog.setHeight(281+40);
+                PopScreenController controller = loader.getController();
+                controller.initData(mainController);
 
-				PopScreenController controller = loader.getController();
-				controller.initData(mainController);
+                dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                    @Override
+                    public void handle(WindowEvent t) {
+                        log.info("dialog.close()");
+                        dialog.close();
+                    }
+                });
 
-				dialog.setOnCloseRequest(new EventHandler<WindowEvent>() {
-	                @Override
-	                public void handle(WindowEvent t) {
-	                    dialog.close();
-	                }
-	            });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		dialog.show();
-	}
+        dialog.show();
+    }
 
     void setFullScreen(ActionEvent event) {
-    	System.out.print("full screen button");
-    	Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
-    	primaryStage.setFullScreen(true);
+        log.debug("");
+
+        Stage primaryStage = (Stage) buttonSend.getScene().getWindow();
+        primaryStage.setFullScreen(true);
     }
 
     @FXML
     void buttonSendOnAction(ActionEvent event) {
-    	mainController.buttonSendOnAction();
+        log.debug("");
+
+        mainController.buttonSendOnAction();
     }
 
-	@FXML
-	void labelCloseClick() {
-		Platform.exit();
-	    System.exit(0);
-	}
+    @FXML
+    void labelCloseClick() {
+        Platform.exit();
+        System.exit(0);
+    }
 
-	@FXML
-	void labelIconifiedClick() {
-	    Stage stage = (Stage) labelClose.getScene().getWindow();
-	    stage.setIconified(true);
-	}
+    @FXML
+    void labelIconifiedClick() {
+        Stage stage = (Stage) labelClose.getScene().getWindow();
+        stage.setIconified(true);
+    }
 
     public void testFeedback() {
-    	textFieldMessage.setText("ya");
+        textFieldMessage.setText("ya");
     }
 
     public String getTextBoxMsg() {
-    	return textFieldMessage.getText();
+        return textFieldMessage.getText();
     }
 
     public void disableMode() {
-    	textFieldMessage.clear();
-    	textFieldMessage.setDisable(true);
-    	buttonSend.requestFocus();
+        log.debug("disableMode()");
+
+        textFieldMessage.clear();
+        textFieldMessage.setDisable(true);
+        buttonSend.requestFocus();
     }
 
-	public void enableMode() {
+    public void enableMode() {
+        log.debug("");
 
-		textFieldMessage.clear();
-		textFieldMessage.setDisable(false);
-		textFieldMessage.requestFocus();
+        textFieldMessage.clear();
+        textFieldMessage.setDisable(false);
+        textFieldMessage.requestFocus();
 
-		new Thread() {
-		  @Override
-		  public void run() {
-			try {
-				sleep(5);
-				textFieldMessage.clear();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		  }
-		}.start();
-	}
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(5);
+                    textFieldMessage.clear();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
 
     @FXML
     void buttonNum2Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD2, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD2, false, false, false, false));
     }
 
     @FXML
     void buttonNum4Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD4, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD4, false, false, false, false));
     }
 
     @FXML
     void buttonNum5Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD5, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD5, false, false, false, false));
     }
 
     @FXML
     void buttonNum6Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD6, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD6, false, false, false, false));
     }
 
     @FXML
     void buttonNum7Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD7, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD7, false, false, false, false));
     }
 
     @FXML
     void buttonNum8Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD8, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD8, false, false, false, false));
     }
 
     @FXML
     void buttonNum9Click(ActionEvent event) {
-    	mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD9, false, false, false, false));
+        mainController.sendPaneKey(new KeyEvent(null, null, null, KeyCode.NUMPAD9, false, false, false, false));
     }
 
     @FXML
     void buttonPopScreen(ActionEvent event) {
-    	popUpWindow01();
+        log.debug("");
+
+        popUpWindow01();
     }
 }

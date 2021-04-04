@@ -11,71 +11,71 @@ import application.model.IModel;
 import application.model.MappingTableCmd;
 import javafx.scene.input.KeyEvent;
 
-
 public class CommandManager implements IModel {
     boolean isRun;
-    private List<Command> commandList = new ArrayList<>();
+    private static final Logger log = Logger.getLogger(CommandManager.class);
+    private List<ICommand> commandList = new ArrayList<>();
     private static ConcurrentLinkedQueue<String> queueStr = new ConcurrentLinkedQueue<String>();
-	MappingTableCmd mappingTable;
+    MappingTableCmd mappingTable;
 
     public CommandManager() {
-    	mappingTable = new MappingTableCmd();
-        threadStart();
+        log.debug("constructor");
 
+        mappingTable = new MappingTableCmd();
+        threadStart();
         BasicConfigurator.configure();
     }
 
-    public void runByStr(String str) {
-    	Command cmd = new KeyeventCommand();
-    	cmd.execute(str);
-    	commandList.add(cmd);
+    public void executeKeyEvent(String str) {
+        ICommand cmd = new KeyeventCommand();
+        cmd.execute(str);
+        commandList.add(cmd);
     }
 
     @Override
-	public void sendAdbString(String str) {
-    	Command cmd = new TextCommand();
-    	cmd.execute(str);
-    	commandList.add(cmd);
+    public void executeTextEvent(String str) {
+        ICommand cmd = new TextCommand();
+        cmd.execute(str);
+        commandList.add(cmd);
     }
 
     @Override
-	public void sendKeyEvent(KeyEvent e) {
-    	System.out.println("sendKeyEvent");
-    	if( queueStr.size()  <= 3) {
-    		String str = mappingTable.map.get(e.getCode());
-    		if(str != null) {
-    			queueStr.offer(str);
-    		}
+    public void sendKeyEvent(KeyEvent e) {
 
-    	}
+        if (queueStr.size() <= 3) {
+            String str = mappingTable.map.get(e.getCode());
+            if (str != null) {
+                queueStr.offer(str);
+                log.debug(str);
+            }
+
+        }
     }
 
-	public void threadStart() {
-		System.out.println("threadStart");
+    public void threadStart() {
+        log.debug("Start.");
 
-		  new Thread() {
-		  @Override
-		  public void run() {
-		      while(true) {
-		          try {
-		              Thread.sleep(100);
-		              if(!queueStr.isEmpty()) {
-		                  String commandStr = "";
-		                  for(String str :queueStr) {
-		                      commandStr += " " + str;
-		                  }
-		                  runByStr(commandStr);
-		                  queueStr.clear();
-		              }
+        new Thread() {
+            @Override
+            public void run() {
+                while (true) {
+                    try {
+                        Thread.sleep(100);
+                        if (!queueStr.isEmpty()) {
+                            String commandStr = "";
+                            for (String str : queueStr) {
+                                commandStr += " " + str;
+                            }
+                            executeKeyEvent(commandStr);
+                            queueStr.clear();
+                        }
 
-		          } catch (InterruptedException e) {
-		              e.printStackTrace();
-		          }
-
-		      }
-
-		  }
-		}.start();
-	}
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }.start();
+    }
 
 }

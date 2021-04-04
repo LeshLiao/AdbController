@@ -1,6 +1,5 @@
 package application.controller;
 
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -8,6 +7,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import org.apache.log4j.Logger;
+
+import application.model.adb.CommandManager;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -50,140 +52,139 @@ public class PopScreenController implements Initializable {
     @FXML
     private SwingNode swingNodePopScreen;
 
-
     AdbControlPanel panel;
     File configFile;
     Config config;
+    private static final Logger log = Logger.getLogger(CommandManager.class);
 
-	@Override
-	public void initialize(URL arg0, ResourceBundle arg1) {
-		System.out.println("PopScreenController initialize");
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        log.debug("");
 
-		configFile = new File("config.properties");
-		config = new Config();
-		try(FileInputStream in = new FileInputStream(configFile))
-		{
-			config.load(in);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+        configFile = new File("config.properties");
+        config = new Config();
+        try (FileInputStream in = new FileInputStream(configFile)) {
+            config.load(in);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-		runScreenshotMonitor();
+        runScreenshotMonitor();
 
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    sleep(100);
 
+                    Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
+                    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+                        @Override
+                        public void handle(WindowEvent t) {
+                            log.info("stopUpdateThread()");
+                            panel.stopUpdateThread();
+                        }
+                    });
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+    }
 
-		new Thread() {
-			  @Override
-			  public void run() {
-				try {
-					sleep(100);
+    public void initData(MainController mainController) {
+        log.debug("");
 
-					Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
-					stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			            @Override
-			            public void handle(WindowEvent t) {
-			            	System.out.println("setOnCloseRequest");
-			            	panel.stopUpdateThread();
-			            }
-			        });
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-			  }
-		}.start();
-	}
-
-	public void initData(MainController mainController) {
-		System.out.println("PopScreenController initData()");
-
-		mainController.printTest("hihihi im from PopScreenController");
+        mainController.printTest("Test sending message from PopScreenController to MainController");
     }
 
     @FXML
     void setFullScreen(ActionEvent event) {
-    	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
-    	System.out.println("setFullScreen");
+        log.info("");
 
-    	paneSub.setLayoutX(stage.getX());
-    	paneSub.setLayoutY(stage.getY());
-    	stage.setFullScreen(true);
+        Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
+        paneSub.setLayoutX(stage.getX());
+        paneSub.setLayoutY(stage.getY());
+        stage.setFullScreen(true);
     }
 
     void cancelFullScreen() {
-    	Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
-    	stage.setFullScreen(false);
+        log.debug("");
+
+        Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
+        stage.setFullScreen(false);
     }
 
-	public void runScreenshotMonitor() {
-		System.out.println("runScreenshotMonitor");
+    public void runScreenshotMonitor() {
+        log.debug("");
 
-		panel = new AdbControlPanel(config);
-
-		panel.setAdbHelper(new AdbHelper(config));
-		panel.setSize(500, 281);//1920:1080
-		panel.setLayout(null);
-		swingNodePopScreen.setContent(panel);
-	}
+        panel = new AdbControlPanel(config);
+        panel.setAdbHelper(new AdbHelper(config));
+        panel.setSize(500, 281);// 1920:1080
+        panel.setLayout(null);
+        swingNodePopScreen.setContent(panel);
+    }
 
     @FXML
     void setSize1920x1080(ActionEvent event) {
-    	System.out.println("setSize1920x1080");
-    	ResetScreenSize(1920, 1080);
+        log.info("");
+        ResetScreenSize(1920, 1080);
     }
 
     @FXML
     void setSize1440x810(ActionEvent event) {
-    	System.out.println("setSize1440x810");
-    	ResetScreenSize(1440, 810);
+        log.info("");
+        ResetScreenSize(1440, 810);
     }
 
     @FXML
     void setSize1000x562(ActionEvent event) {
-    	System.out.println("setSize1000x562");
-    	ResetScreenSize(1000, 562);
+        log.info("");
+        ResetScreenSize(1000, 562);
     }
 
     @FXML
     void setSize500x281(ActionEvent event) {
-    	System.out.println("setSize500x281");
-    	ResetScreenSize(500, 281);
+        log.info("");
+        ResetScreenSize(500, 281);
     }
 
     public void ResetScreenSize(int Width, int Height) {
-    	cancelFullScreen();
-    	setAnchorPaneMainToZero();
+        log.debug("");
 
-    	panel.stopUpdateThread();
+        cancelFullScreen();
+        setAnchorPaneMainToZero();
 
-		panel = new AdbControlPanel(config);
-		panel.setAdbHelper(new AdbHelper(config));
-		panel.setSize(Width, Height);
-		panel.setLayout(null);
-		swingNodePopScreen.setContent(panel);
-		Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
-		stage.setWidth(Width+15);
-		stage.setHeight(Height+40);
-		stage.centerOnScreen();
+        panel.stopUpdateThread();
 
-		if(stage.getY() < 0) {
-			stage.setX(0);
-			stage.setY(0);
-		}
+        panel = new AdbControlPanel(config);
+        panel.setAdbHelper(new AdbHelper(config));
+        panel.setSize(Width, Height);
+        panel.setLayout(null);
+        swingNodePopScreen.setContent(panel);
+        Stage stage = (Stage) buttonFullScreen.getScene().getWindow();
+        stage.setWidth(Width + 15);
+        stage.setHeight(Height + 40);
+        stage.centerOnScreen();
+
+        if (stage.getY() < 0) {
+            stage.setX(0);
+            stage.setY(0);
+        }
     }
 
     @FXML
     void anchorPaneOnKeyPressed(KeyEvent e) {
-        if(e.getCode() == KeyCode.ESCAPE) {
-        	setAnchorPaneMainToZero();
+        if (e.getCode() == KeyCode.ESCAPE) {
+            setAnchorPaneMainToZero();
         }
     }
 
     void setAnchorPaneMainToZero() {
-    	paneSub.setLayoutX(0);
-    	paneSub.setLayoutY(0);
+        paneSub.setLayoutX(0);
+        paneSub.setLayoutY(0);
     }
-
 
 }

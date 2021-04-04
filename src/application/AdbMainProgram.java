@@ -14,28 +14,30 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 public class AdbMainProgram extends Application {
-	@Override
-	public void start(Stage primaryStage) {
+    @Override
+    public void start(Stage primaryStage) {
 
         try {
+            DOMConfigurator.configure("log/log4j.xml");
+
             Parent root = FXMLLoader.load(getClass().getResource("/application/view/NewView.fxml"));
             Scene scene = new Scene(root);
 
             String css = this.getClass().getResource("application.css").toExternalForm();
             scene.getStylesheets().add(css);
 
-            primaryStage.initStyle(StageStyle.UNDECORATED);	// hide top border of stage
+            primaryStage.initStyle(StageStyle.UNDECORATED); // hide top border of stage
 
-    		Image icon = new Image("icon/remote-control-1409191-1191921.png");
+            Image icon = new Image("icon/remote-control-1409191-1191921.png");
 
-    		primaryStage.getIcons().add(icon);
+            primaryStage.getIcons().add(icon);
 
             scene.setOnMousePressed(pressEvent -> {
-            	scene.setOnMouseDragged(dragEvent -> {
-	 		        primaryStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
-	 		        primaryStage.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
-            	});
-     	    });
+                scene.setOnMouseDragged(dragEvent -> {
+                    primaryStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
+                    primaryStage.setY(dragEvent.getScreenY() - pressEvent.getSceneY());
+                });
+            });
 
             primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
                 @Override
@@ -48,19 +50,13 @@ public class AdbMainProgram extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
 
-            //Logger log = Logger.getRootLogger();
-            //log.setLevel(Level.INFO);
-            //log.info("set log level:" + "Level.INFO");
-            DOMConfigurator.configure("log/log4j.xml" );
-
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-	}
+    }
 
-	public static void main(String[] args) {
-		System.out.println("MainProgram main()");
-		launch(args);
-	}
+    public static void main(String[] args) {
+        launch(args);
+    }
 
 }

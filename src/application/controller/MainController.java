@@ -1,5 +1,7 @@
 package application.controller;
 
+import org.apache.log4j.Logger;
+
 import application.model.IModel;
 import application.model.adb.CommandManager;
 import application.view.MainPanel;
@@ -8,45 +10,47 @@ import javafx.scene.input.KeyEvent;
 
 public class MainController {
 
-	private MainPanel view;
-	private IModel model;
+    private MainPanel view;
+    private IModel model;
+    private static final Logger log = Logger.getLogger(MainController.class);
 
-	public MainController(MainPanel _view) {
-		view = _view;
-		model = new CommandManager();
-	}
+    public MainController(MainPanel _view) {
+        view = _view;
+        model = new CommandManager();
+    }
 
-	public void buttonSendOnAction() {
+    public void buttonSendOnAction() {
+        log.debug("TextBoxMsg=" + view.getTextBoxMsg());
 
-		System.out.println("MainController buttonSendOnAction");
-		model.sendAdbString(view.getTextBoxMsg());
-    	view.disableMode();
+        model.executeTextEvent(view.getTextBoxMsg());
+        view.disableMode();
 
-	}
+    }
 
-	public void sendTextFieldKey(KeyEvent e) {
+    public void sendTextFieldKey(KeyEvent e) {
+        log.debug("KeyEvent=" + e.getCharacter());
 
-        if(e.getCode() == KeyCode.ESCAPE) {
-        	view.disableMode();
+        if (e.getCode() == KeyCode.ESCAPE) {
+            view.disableMode();
         } else if (e.getCode() == KeyCode.ENTER) {
-        	model.sendAdbString(view.getTextBoxMsg());
-        	view.disableMode();
+            model.executeTextEvent(view.getTextBoxMsg());
+            view.disableMode();
         }
 
-	}
+    }
 
-	public void sendPaneKey(KeyEvent e) {
+    public void sendPaneKey(KeyEvent e) {
+        log.debug("KeyEvent=" + e.getText());
 
-        if(e.getCode() == KeyCode.T) {
-	        System.out.println("click T");
-	        view.enableMode();
-    	}else {
-    		model.sendKeyEvent(e);
-    	}
-	}
+        if (e.getCode() == KeyCode.T) {
+            view.enableMode();
+        } else {
+            model.sendKeyEvent(e);
+        }
+    }
 
-	public void printTest(String str) {
-		System.out.println("MainController printTest()" + str);
-	}
+    public void printTest(String str) {
+        log.debug("str=" + str);
+    }
 
 }

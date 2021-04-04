@@ -35,12 +35,11 @@
         <param name="File" value="log/htmlLayout_report.html" />
         <param name="Append" value="true" />
         <layout class="org.apache.log4j.HTMLLayout">
-            <param name="Title" value="Hello" />
+            <param name="Title" value="HTMLLayout Report" />
             <param name="LocationInfo" value="true" />
         </layout>
     </appender>
 
- 
     <appender name="activexAppender" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="File" value="log/activex.log" />
         <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
@@ -48,9 +47,6 @@
          <param name="ConversionPattern" value="[%d{MMdd HH:mm:ss SSS\} %-5p] [%t] %c{3\} - %m%n" />
         </layout>
     </appender>
-    
-    
-
  
     <!-- 指定logger的設定，additivity指示是否遵循預設的繼承機制-->
     <!-- <logger name="com.runway.bssp.activeXdemo" additivity="false">-->
@@ -58,12 +54,18 @@
     <!--     <appender-ref ref="activexAppender" />-->
     <!-- </logger>-->
 
+    <logger name="application" additivity="false">
+        <level value="info"/>               <!-- set log level: fatal, error, warn, info, debug, trace -->
+        <appender-ref ref="myConsole"/>
+    </logger>
+
+
     <!-- 根logger的設定-->
     <root>
-        <priority value ="trace"/>			<!-- set log level -->
-        <appender-ref ref="myConsole"/>
-        <appender-ref ref="myFile"/>
-        <appender-ref ref="web_report_test"/>
+        <priority value ="info"/>			<!-- set log level: fatal, error, warn, info, debug, trace -->
+        <appender-ref ref="myConsole"/> 
+        <!--<appender-ref ref="myFile"/> -->
+        <!--<appender-ref ref="web_report_test"/> -->
     </root>
 
 </log4j:configuration>

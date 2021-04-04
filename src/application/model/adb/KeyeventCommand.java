@@ -2,44 +2,34 @@ package application.model.adb;
 
 import java.io.IOException;
 
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-public class KeyeventCommand implements Command {
+public class KeyeventCommand implements ICommand {
 
-	private ProcessBuilder pb;
-	private final String adbFile = "adb";
+    private ProcessBuilder pb;
+    private final String adbFile = "adb";
 
-	private static final Logger log = Logger.getLogger(KeyeventCommand.class);
+    private static final Logger log = Logger.getLogger(KeyeventCommand.class);
 
-	public KeyeventCommand() {
-		log.setLevel(Level.ERROR);
-	}
-	
-	@Override
-	public boolean execute(String str) {
+    public KeyeventCommand() {
+        // log.setLevel(Level.ERROR);
+    }
 
+    @Override
+    public boolean execute(String str) {
+        log.info("str=" + str);
 
-		log.trace("Trace Message!");
-		log.debug("Debug Message!");
-		log.info("Info Message!");
-		log.warn("Warn Message!");
-		log.error("Error Message!");
-		log.fatal("Fatal Message!");
-
-
-		System.out.println("KeyeventCommand execute() "+ str);
-
-		pb = new ProcessBuilder();
-        pb.command(adbFile,"shell","input","keyevent",str);
+        pb = new ProcessBuilder();
+        pb.command(adbFile, "shell", "input", "keyevent", str);
 
         try {
-        	pb.start();
+            pb.start();
         } catch (IOException e1) {
             e1.printStackTrace();
+            log.error("Exception, str=" + str);
             return false;
         }
-		return true;
-	}
+        return true;
+    }
 
 }
