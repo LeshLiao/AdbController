@@ -23,15 +23,6 @@ public class AdbMainProgram extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/application/view/NewView.fxml"));
             Scene scene = new Scene(root);
 
-            String css = this.getClass().getResource("application.css").toExternalForm();
-            scene.getStylesheets().add(css);
-
-            primaryStage.initStyle(StageStyle.UNDECORATED); // hide top border of stage
-
-            Image icon = new Image("icon/remote-control-1409191-1191921.png");
-
-            primaryStage.getIcons().add(icon);
-
             scene.setOnMousePressed(pressEvent -> {
                 scene.setOnMouseDragged(dragEvent -> {
                     primaryStage.setX(dragEvent.getScreenX() - pressEvent.getSceneX());
@@ -46,6 +37,10 @@ public class AdbMainProgram extends Application {
                 }
             });
 
+            Image icon = new Image("icon/remote-control-1409191-1191921.png");
+
+            primaryStage.getIcons().add(icon);
+            primaryStage.initStyle(StageStyle.UNDECORATED); // hide top border of stage
             primaryStage.setTitle("My Application");
             primaryStage.setScene(scene);
             primaryStage.show();

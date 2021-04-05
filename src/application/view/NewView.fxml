@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="newAnchorPane" prefHeight="587.0" prefWidth="169.0" style="-fx-background-color: #2d2c31;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainPanel">
+<AnchorPane fx:id="newAnchorPane" prefHeight="587.0" prefWidth="169.0" style="-fx-background-color: #2d2c31;" stylesheets="@../application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.view.MainPanel">
    <children>
       <VBox layoutX="6.0" prefHeight="492.0" prefWidth="185.0">
          <children>
@@ -47,7 +47,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="185.0">
                <children>
-                  <Button fx:id="buttonNum7" mnemonicParsing="false" onAction="#buttonNum7Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="7" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum7" mnemonicParsing="false" onAction="#buttonNum7Click" prefHeight="30.0" prefWidth="40.0" text="7" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Home" />
                      </tooltip>
@@ -55,7 +55,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="buttonNum8" mnemonicParsing="false" onAction="#buttonNum8Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="8" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum8" mnemonicParsing="false" onAction="#buttonNum8Click" prefHeight="30.0" prefWidth="40.0" text="8" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Up" />
                      </tooltip>
@@ -63,7 +63,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="buttonNum9" mnemonicParsing="false" onAction="#buttonNum9Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="9" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum9" mnemonicParsing="false" onAction="#buttonNum9Click" prefHeight="30.0" prefWidth="40.0" text="9" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Exit" />
                      </tooltip>
@@ -97,7 +97,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="185.0">
                <children>
-                  <Button fx:id="buttonNum4" mnemonicParsing="false" onAction="#buttonNum4Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="4" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum4" mnemonicParsing="false" onAction="#buttonNum4Click" prefHeight="30.0" prefWidth="40.0" text="4" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Left" />
                      </tooltip>
@@ -105,7 +105,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="buttonNum5" mnemonicParsing="false" onAction="#buttonNum5Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="5" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum5" mnemonicParsing="false" onAction="#buttonNum5Click" prefHeight="30.0" prefWidth="40.0" text="5" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Click" />
                      </tooltip>
@@ -113,7 +113,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="buttonNum6" mnemonicParsing="false" onAction="#buttonNum6Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="6" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum6" mnemonicParsing="false" onAction="#buttonNum6Click" prefHeight="30.0" prefWidth="40.0" text="6" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Right" />
                      </tooltip>
@@ -147,7 +147,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="30.0" prefWidth="283.0">
                <children>
-                  <Button fx:id="buttonNum1" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="1" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum1" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="1" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="EPG" />
                      </tooltip>
@@ -155,7 +155,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="buttonNum2" mnemonicParsing="false" onAction="#buttonNum2Click" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="2" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum2" mnemonicParsing="false" onAction="#buttonNum2Click" prefHeight="30.0" prefWidth="40.0" text="2" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Down" />
                      </tooltip>
@@ -163,7 +163,7 @@
                         <Insets right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="buttonNum3" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" style="-fx-background-color: #1e1e1e;" text="3" textFill="#cdd3d7">
+                  <Button fx:id="buttonNum3" disable="true" mnemonicParsing="false" prefHeight="30.0" prefWidth="40.0" text="3" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Photo" />
                      </tooltip>
@@ -197,7 +197,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="283.0">
                <children>
-                  <Button fx:id="buttonPopScreen" mnemonicParsing="false" onAction="#buttonPopScreen" prefHeight="30.0" prefWidth="143.0" style="-fx-background-color: #1e1e1e;" text="Pop Screen" textFill="#cdd3d7">
+                  <Button fx:id="buttonPopScreen" mnemonicParsing="false" onAction="#buttonPopScreen" prefHeight="30.0" prefWidth="143.0" text="Pop Screen" textFill="#cdd3d7">
                      <tooltip>
                         <Tooltip text="Pop screen" />
                      </tooltip>
