@@ -76,6 +76,9 @@ public class MainPanel implements Initializable {
     @FXML
     private Button buttonPopScreen;
 
+    @FXML
+    private Button buttonShowTable;
+
     public MainPanel() {
         log.debug("");
 
@@ -238,4 +241,10 @@ public class MainPanel implements Initializable {
 
         popUpWindow01();
     }
+
+    @FXML
+    void buttonShowTableClick(ActionEvent event) {
+        log.info("buttonShowTableClick test");
+    }
+
 }

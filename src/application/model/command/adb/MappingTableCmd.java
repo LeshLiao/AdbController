@@ -1,4 +1,4 @@
-package application.model;
+package application.model.command.adb;
 
 import java.util.HashMap;
 import java.util.Map;

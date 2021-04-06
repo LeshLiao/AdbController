@@ -1,4 +1,4 @@
-package application.model.adb;
+package application.model.command.adb;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,11 +7,10 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import application.model.IModel;
-import application.model.MappingTableCmd;
+import application.model.command.ICommandModel;
 import javafx.scene.input.KeyEvent;
 
-public class CommandManager implements IModel {
+public class CommandManager implements ICommandModel {
     boolean isRun;
     private static final Logger log = Logger.getLogger(CommandManager.class);
     private List<ICommand> commandList = new ArrayList<>();
@@ -27,15 +26,15 @@ public class CommandManager implements IModel {
     }
 
     public void executeKeyEvent(String str) {
-        ICommand cmd = new KeyeventCommand();
-        cmd.execute(str);
+        ICommand cmd = new KeyeventCommand(str);
+        cmd.execute();
         commandList.add(cmd);
     }
 
     @Override
     public void executeTextEvent(String str) {
-        ICommand cmd = new TextCommand();
-        cmd.execute(str);
+        ICommand cmd = new TextCommand(str);
+        cmd.execute();
         commandList.add(cmd);
     }
 
@@ -55,7 +54,7 @@ public class CommandManager implements IModel {
     public void threadStart() {
         log.debug("Start.");
 
-        new Thread() {
+        new Thread("Queue thread") {
             @Override
             public void run() {
                 while (true) {
@@ -76,6 +75,16 @@ public class CommandManager implements IModel {
                 }
             }
         }.start();
+    }
+
+    public boolean runAllCommands() {
+
+        for (ICommand cmd : commandList) {
+            cmd.execute();
+        }
+
+        return true;
+
     }
 
 }

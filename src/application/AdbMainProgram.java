@@ -3,15 +3,12 @@ package application;
 import org.apache.log4j.xml.DOMConfigurator;
 
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 public class AdbMainProgram extends Application {
     @Override
@@ -30,16 +27,11 @@ public class AdbMainProgram extends Application {
                 });
             });
 
-            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-                @Override
-                public void handle(WindowEvent t) {
-                    Platform.exit();
-                }
-            });
-
             Image icon = new Image("icon/remote-control-1409191-1191921.png");
-
             primaryStage.getIcons().add(icon);
+            primaryStage.setOnCloseRequest(t -> {
+                System.exit(0);
+            });
             primaryStage.initStyle(StageStyle.UNDECORATED); // hide top border of stage
             primaryStage.setTitle("My Application");
             primaryStage.setScene(scene);

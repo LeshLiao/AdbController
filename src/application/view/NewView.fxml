@@ -221,8 +221,12 @@
                      </tooltip></Button>
                </children>
             </HBox>
+            <HBox alignment="CENTER" prefHeight="46.0" prefWidth="185.0">
+               <children>
+                  <Button fx:id="buttonShowTable" mnemonicParsing="false" onAction="#buttonShowTableClick" prefHeight="30.0" prefWidth="143.0" text="ShowTable" />
+               </children>
+            </HBox>
          </children>
       </VBox>
-      <Button layoutX="32.0" layoutY="561.0" mnemonicParsing="false" text="Button" />
    </children>
 </AnchorPane>

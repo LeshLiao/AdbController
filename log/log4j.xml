@@ -57,6 +57,8 @@
     <logger name="application" additivity="false">
         <level value="info"/>               <!-- set log level: fatal, error, warn, info, debug, trace -->
         <appender-ref ref="myConsole"/>
+        <!-- <appender-ref ref="myFile"/> -->
+        <!-- <appender-ref ref="web_report_test"/> --> 
     </logger>
 
 
@@ -64,8 +66,8 @@
     <root>
         <priority value ="info"/>			<!-- set log level: fatal, error, warn, info, debug, trace -->
         <appender-ref ref="myConsole"/> 
-        <!--<appender-ref ref="myFile"/> -->
-        <!--<appender-ref ref="web_report_test"/> -->
+        <!-- <appender-ref ref="myFile"/> -->
+        <!-- <appender-ref ref="web_report_test"/> --> 
     </root>
 
 </log4j:configuration>

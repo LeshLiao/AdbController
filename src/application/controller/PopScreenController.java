@@ -9,7 +9,7 @@ import java.util.ResourceBundle;
 
 import org.apache.log4j.Logger;
 
-import application.model.adb.CommandManager;
+import application.model.command.adb.CommandManager;
 import javafx.embed.swing.SwingNode;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;

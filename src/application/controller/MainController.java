@@ -2,8 +2,8 @@ package application.controller;
 
 import org.apache.log4j.Logger;
 
-import application.model.IModel;
-import application.model.adb.CommandManager;
+import application.model.command.ICommandModel;
+import application.model.command.adb.CommandManager;
 import application.view.MainPanel;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -11,18 +11,20 @@ import javafx.scene.input.KeyEvent;
 public class MainController {
 
     private MainPanel view;
-    private IModel model;
+
+    private ICommandModel commandModel;
     private static final Logger log = Logger.getLogger(MainController.class);
 
     public MainController(MainPanel _view) {
         view = _view;
-        model = new CommandManager();
+        commandModel = new CommandManager();
+        // model = new PrintCommandManager(); // For unit test
     }
 
     public void buttonSendOnAction() {
         log.debug("TextBoxMsg=" + view.getTextBoxMsg());
 
-        model.executeTextEvent(view.getTextBoxMsg());
+        commandModel.executeTextEvent(view.getTextBoxMsg());
         view.disableMode();
 
     }
@@ -33,7 +35,7 @@ public class MainController {
         if (e.getCode() == KeyCode.ESCAPE) {
             view.disableMode();
         } else if (e.getCode() == KeyCode.ENTER) {
-            model.executeTextEvent(view.getTextBoxMsg());
+            commandModel.executeTextEvent(view.getTextBoxMsg());
             view.disableMode();
         }
 
@@ -45,12 +47,17 @@ public class MainController {
         if (e.getCode() == KeyCode.T) {
             view.enableMode();
         } else {
-            model.sendKeyEvent(e);
+            commandModel.sendKeyEvent(e);
         }
     }
 
     public void printTest(String str) {
         log.debug("str=" + str);
+    }
+
+    public void runAllCommands() {
+        log.debug("");
+
     }
 
 }
