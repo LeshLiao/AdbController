@@ -29,6 +29,7 @@ public class CommandManager implements ICommandModel {
         ICommand cmd = new KeyeventCommand(str);
         cmd.execute();
         commandList.add(cmd);
+        // commandList.add(new WaitCommand(1000));
     }
 
     @Override
@@ -77,14 +78,10 @@ public class CommandManager implements ICommandModel {
         }.start();
     }
 
-    public boolean runAllCommands() {
-
-        for (ICommand cmd : commandList) {
-            cmd.execute();
-        }
-
-        return true;
-
+    @Override
+    public List<ICommand> getAllCommand() {
+        // TODO Auto-generated method stub
+        return commandList;
     }
 
 }

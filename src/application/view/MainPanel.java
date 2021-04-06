@@ -244,7 +244,8 @@ public class MainPanel implements Initializable {
 
     @FXML
     void buttonShowTableClick(ActionEvent event) {
-        log.info("buttonShowTableClick test");
+        log.info("runAllCommands test");
+        mainController.runAllCommands();
     }
 
 }
