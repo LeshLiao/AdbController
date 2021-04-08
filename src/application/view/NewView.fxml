@@ -223,7 +223,12 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="46.0" prefWidth="185.0">
                <children>
-                  <Button fx:id="buttonShowTable" mnemonicParsing="false" onAction="#buttonShowTableClick" prefHeight="30.0" prefWidth="143.0" text="ShowTable" />
+                  <Button fx:id="buttonShowTable" mnemonicParsing="false" onAction="#buttonShowTableClick" prefHeight="31.0" prefWidth="141.0" text="ShowTable" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="185.0">
+               <children>
+                  <ToggleButton fx:id="buttonRecord" mnemonicParsing="false" prefHeight="31.0" prefWidth="130.0" text="Record" />
                </children>
             </HBox>
          </children>

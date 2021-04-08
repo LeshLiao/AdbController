@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -78,6 +79,9 @@ public class MainPanel implements Initializable {
 
     @FXML
     private Button buttonShowTable;
+
+    @FXML
+    private ToggleButton buttonRecord;
 
     public MainPanel() {
         log.debug("");
@@ -238,7 +242,6 @@ public class MainPanel implements Initializable {
     @FXML
     void buttonPopScreen(ActionEvent event) {
         log.debug("");
-
         popUpWindow01();
     }
 

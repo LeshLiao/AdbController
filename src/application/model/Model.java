@@ -1,13 +1,13 @@
 package application.model;
 
-import application.model.command.ICommandModel;
+import application.model.command.CommandModel;
 import application.model.command.adb.ICommand;
 import javafx.scene.input.KeyEvent;
 
 public class Model {
-    private ICommandModel commandModel;
+    private CommandModel commandModel;
 
-    public Model(ICommandModel _model) {
+    public Model(CommandModel _model) {
         commandModel = _model;
         // model = new PrintCommandManager(); // For unit test
     }

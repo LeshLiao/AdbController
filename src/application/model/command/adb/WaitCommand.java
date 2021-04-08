@@ -13,6 +13,8 @@ public class WaitCommand implements ICommand {
 
     @Override
     public boolean execute() {
+        log.info("sleep " + millis + "ms");
+
         try {
             Thread.sleep(millis);
         } catch (InterruptedException e) {

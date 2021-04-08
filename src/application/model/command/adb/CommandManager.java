@@ -7,15 +7,18 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
-import application.model.command.ICommandModel;
+import application.model.command.CommandModel;
 import javafx.scene.input.KeyEvent;
 
-public class CommandManager implements ICommandModel {
+public class CommandManager extends CommandModel {
     boolean isRun;
     private static final Logger log = Logger.getLogger(CommandManager.class);
     private List<ICommand> commandList = new ArrayList<>();
     private static ConcurrentLinkedQueue<String> queueStr = new ConcurrentLinkedQueue<String>();
-    MappingTableCmd mappingTable;
+    private MappingTableCmd mappingTable;
+    private long indexTime = 0;
+    // private long startTime = System.currentTimeMillis();
+    // private long endTime = System.currentTimeMillis();
 
     public CommandManager() {
         log.debug("constructor");
@@ -28,31 +31,28 @@ public class CommandManager implements ICommandModel {
     public void executeKeyEvent(String str) {
         ICommand cmd = new KeyeventCommand(str);
         cmd.execute();
-        commandList.add(cmd);
-        // commandList.add(new WaitCommand(1000));
+        recordCommand(cmd);
     }
 
     @Override
     public void executeTextEvent(String str) {
         ICommand cmd = new TextCommand(str);
         cmd.execute();
-        commandList.add(cmd);
+        recordCommand(cmd);
     }
 
     @Override
     public void sendKeyEvent(KeyEvent e) {
-
         if (queueStr.size() <= 3) {
             String str = mappingTable.map.get(e.getCode());
             if (str != null) {
                 queueStr.offer(str);
                 log.debug(str);
             }
-
         }
     }
 
-    public void threadStart() {
+    private void threadStart() {
         log.debug("Start.");
 
         new Thread("Queue thread") {
@@ -80,8 +80,18 @@ public class CommandManager implements ICommandModel {
 
     @Override
     public List<ICommand> getAllCommand() {
-        // TODO Auto-generated method stub
         return commandList;
     }
 
+    private void recordCommand(ICommand cmd) {
+        if (indexTime == 0) {
+            indexTime = System.currentTimeMillis();
+        } else {
+            long currentTime = System.currentTimeMillis();
+            long waitMillis = currentTime - indexTime;
+            indexTime = currentTime;
+            commandList.add(new WaitCommand(waitMillis));
+        }
+        commandList.add(cmd);
+    }
 }

@@ -4,11 +4,11 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
-import application.model.command.ICommandModel;
+import application.model.command.CommandModel;
 import application.model.command.adb.ICommand;
 import javafx.scene.input.KeyEvent;
 
-public class PrintCommandManager implements ICommandModel {
+public class PrintCommandManager extends CommandModel {
     private static final Logger log = Logger.getLogger(PrintCommandManager.class);
 
     public PrintCommandManager() {
@@ -27,7 +27,6 @@ public class PrintCommandManager implements ICommandModel {
 
     @Override
     public List<ICommand> getAllCommand() {
-        // TODO Auto-generated method stub
         return null;
     }
 
