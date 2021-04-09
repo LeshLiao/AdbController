@@ -11,16 +11,19 @@
 }
 
 /*
+.toggle-button {
+    -fx-background-color: #202020;
+    -fx-text-fill: #A5A5A5;
+}
+*/
+
 #buttonRecord {
     -fx-background-color: #202020;
     -fx-text-fill: #A5A5A5;
 }
-
-#buttonRecord:hover {
-    -fx-background-color: #252525;
-    -fx-text-fill: #fcfafc;
+#buttonRecord:selected:focused {
+    -fx-background-color: #880000;
+    -fx-text-fill: #A5A5A5;
 }
-
-*/
 
 

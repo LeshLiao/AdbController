@@ -3,7 +3,9 @@ package application.controller;
 import org.apache.log4j.Logger;
 
 import application.model.Model;
+import application.model.command.CommandModel;
 import application.model.command.adb.CommandManager;
+import application.model.record.RecordManager;
 import application.view.MainPanel;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -13,11 +15,14 @@ public class MainController {
     private MainPanel view;
 
     private Model model;
+    private CommandModel commandModel;
     private static final Logger log = Logger.getLogger(MainController.class);
 
     public MainController(MainPanel _view) {
         view = _view;
-        model = new Model(new CommandManager());
+        commandModel = new CommandManager();
+        commandModel.setRecorder(new RecordManager());
+        model = new Model(commandModel);
         // model = new Model(new PrintCommandManager()); // For unit test
     }
 
@@ -26,7 +31,6 @@ public class MainController {
 
         model.executeTextEvent(view.getTextBoxMsg());
         view.disableMode();
-
     }
 
     public void sendTextFieldKey(KeyEvent e) {
@@ -58,6 +62,16 @@ public class MainController {
     public void runAllCommands() {
         log.debug("");
         model.runAllCommands();
+    }
+
+    public void startRecord() {
+        log.debug("");
+        model.startRecord();
+    }
+
+    public void stopRecord() {
+        log.debug("");
+        model.stopRecord();
     }
 
 }

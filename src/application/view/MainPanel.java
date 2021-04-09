@@ -187,21 +187,17 @@ public class MainPanel implements Initializable {
     public void enableMode() {
         log.debug("");
 
-        textFieldMessage.clear();
         textFieldMessage.setDisable(false);
         textFieldMessage.requestFocus();
 
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    sleep(5);
-                    textFieldMessage.clear();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+        new Thread(() -> {
+            try {
+                Thread.sleep(10);
+                textFieldMessage.clear();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }.start();
+        }).start();
     }
 
     @FXML
@@ -249,6 +245,15 @@ public class MainPanel implements Initializable {
     void buttonShowTableClick(ActionEvent event) {
         log.info("runAllCommands test");
         mainController.runAllCommands();
+    }
+
+    @FXML
+    void buttonRecordClick(ActionEvent event) {
+        if (buttonRecord.isSelected()) {
+            mainController.startRecord();
+        } else {
+            mainController.stopRecord();
+        }
     }
 
 }

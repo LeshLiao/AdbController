@@ -1,11 +1,9 @@
 package application.model.command.print;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import application.model.command.CommandModel;
-import application.model.command.adb.ICommand;
+import application.model.record.RecordManager;
 import javafx.scene.input.KeyEvent;
 
 public class PrintCommandManager extends CommandModel {
@@ -26,7 +24,13 @@ public class PrintCommandManager extends CommandModel {
     }
 
     @Override
-    public List<ICommand> getAllCommand() {
+    public void setRecorder(RecordManager recordManager) {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
+    public RecordManager getRecorder() {
+        // TODO Auto-generated method stub
         return null;
     }
 

@@ -1,8 +1,6 @@
 package application.model.command;
 
-import java.util.List;
-
-import application.model.command.adb.ICommand;
+import application.model.record.RecordManager;
 import javafx.scene.input.KeyEvent;
 
 public abstract class CommandModel {
@@ -10,5 +8,8 @@ public abstract class CommandModel {
 
     public abstract void executeTextEvent(String str);
 
-    public abstract List<ICommand> getAllCommand();
+    public abstract void setRecorder(RecordManager recordManager);
+
+    public abstract RecordManager getRecorder();
+
 }
