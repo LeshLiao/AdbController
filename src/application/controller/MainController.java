@@ -21,7 +21,7 @@ public class MainController {
     public MainController(MainPanel _view) {
         view = _view;
         commandModel = new CommandManager();
-        commandModel.setRecorder(new RecordManager());
+        commandModel.setRecorder(new RecordManager(this));
         model = new Model(commandModel);
         // model = new Model(new PrintCommandManager()); // For unit test
     }
@@ -62,6 +62,17 @@ public class MainController {
     public void runAllCommands() {
         log.debug("");
         model.runAllCommands();
+    }
+
+    public void stopRunCommands() {
+        log.debug("");
+        model.stopRunCommands();
+
+    }
+
+    public void settoggleButtonRun(boolean selectValue) {
+        log.debug("selectValue=" + selectValue);
+        view.settoggleButtonRun(selectValue);
     }
 
     public void startRecord() {

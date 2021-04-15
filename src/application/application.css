@@ -26,4 +26,13 @@
     -fx-text-fill: #A5A5A5;
 }
 
+#toggleButtonRun {
+    -fx-background-color: #202020;
+    -fx-text-fill: #A5A5A5;
+}
+#toggleButtonRun:selected:focused {
+    -fx-background-color: #880000;
+    -fx-text-fill: #A5A5A5;
+}
+
 

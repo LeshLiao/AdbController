@@ -78,10 +78,10 @@ public class MainPanel implements Initializable {
     private Button buttonPopScreen;
 
     @FXML
-    private Button buttonShowTable;
+    private ToggleButton buttonRecord;
 
     @FXML
-    private ToggleButton buttonRecord;
+    private ToggleButton toggleButtonRun;
 
     public MainPanel() {
         log.debug("");
@@ -242,18 +242,28 @@ public class MainPanel implements Initializable {
     }
 
     @FXML
-    void buttonShowTableClick(ActionEvent event) {
-        log.info("runAllCommands test");
-        mainController.runAllCommands();
-    }
-
-    @FXML
     void buttonRecordClick(ActionEvent event) {
         if (buttonRecord.isSelected()) {
             mainController.startRecord();
         } else {
             mainController.stopRecord();
         }
+    }
+
+    @FXML
+    void toggleButtonRunClick(ActionEvent event) {
+        if (toggleButtonRun.isSelected()) {
+            log.info("run All Commands");
+            mainController.runAllCommands();
+        } else {
+            log.info("stop Run Commands");
+            mainController.stopRunCommands();
+        }
+
+    }
+
+    public void settoggleButtonRun(boolean selectValue) {
+        toggleButtonRun.setSelected(selectValue);
     }
 
 }

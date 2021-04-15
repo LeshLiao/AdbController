@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 
+import application.controller.MainController;
 import application.model.command.adb.ICommand;
 import application.model.command.adb.WaitCommand;
 
@@ -15,6 +16,11 @@ public class RecordManager {
     private long indexTime = 0;
     private boolean enableRunThread;
     public boolean isRecording;
+    private MainController controller;
+
+    public RecordManager(MainController _controller) {
+        controller = _controller;
+    }
 
     public void startRecord() {
         log.info("");
@@ -55,13 +61,17 @@ public class RecordManager {
                     break;
                 cmd.execute();
             }
+
+            controller.settoggleButtonRun(false);
+            log.info("end.");
+
         }, "Run cmd Thread").start();
 
-        log.info("end.");
     }
 
     public void StopRunning() {
         log.info("Stop.");
         enableRunThread = false;
+        controller.settoggleButtonRun(false);
     }
 }
