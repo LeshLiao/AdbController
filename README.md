@@ -2,11 +2,11 @@
 
 it must be used with Java 8 or above.
 
-IDE: Eclipse <p>
-Architecture: MVC
-Design pattern: Command pattern.
-Java GUI framework: JavaFX
-Logger lib: log4j
+IDE: Eclipse<p>
+Architecture: MVC<p>
+Design pattern: Command pattern<p>
+Java GUI framework: JavaFX<p>
+Logger lib: log4j<p>
 
 <p float="left">
   <img src="https://github.com/LeshLiao/AdbController/blob/main/media/01.png" height="297">
