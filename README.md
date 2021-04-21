@@ -2,7 +2,7 @@
 
 it must be used with Java 8 or above.
 
-IDE: Eclipse
+IDE: Eclipse <p>
 Architecture: MVC
 Design pattern: Command pattern.
 Java GUI framework: JavaFX
